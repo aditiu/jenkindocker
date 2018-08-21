@@ -1,0 +1,167 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+    <parent>
+        <groupId>App</groupId>
+        <artifactId>app</artifactId>
+        <version>1.5</version>
+
+    </parent>
+
+
+    <groupId>mywebapp</groupId>
+    <artifactId>MyWebApp</artifactId>
+
+  <packaging>war</packaging>
+  <name>MyWebApp</name>
+  <url>http://maven.apache.org</url>
+
+  <build>
+    <finalName>Mywebapp</finalName>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-dependency-plugin</artifactId>
+              <version>2.10</version>
+              <executions>
+                  <execution>
+                      <id>copy-dependencies</id>
+                      <phase>initialize</phase>
+                      <goals>
+                          <goal>copy</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <artifactItems>
+                      <artifactItem>
+                          <groupId>myapp</groupId>
+                          <artifactId>Demo</artifactId>
+                          <version>${project.version}</version>
+                          <overWrite>true</overWrite>
+
+                      </artifactItem>
+                      <artifactItem>
+                          <groupId>myapp</groupId>
+                          <artifactId>myApp</artifactId>
+                          <version>${project.version}</version>
+                          <overWrite>true</overWrite>
+
+                      </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}\lib</outputDirectory>
+                  <excludeTransitive>true</excludeTransitive>
+                  <overWriteReleases>true</overWriteReleases>
+                  <overWriteSnapshots>true</overWriteSnapshots>
+                  <overWriteIfNewer>true</overWriteIfNewer>
+                  <stripVersion>false</stripVersion>
+              </configuration>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-war-plugin</artifactId>
+
+              <configuration>
+                  <archive>
+                      <manifestEntries>
+                          <Specification-Title>${project.name}</Specification-Title>
+                          <Specification-Version>${project.version}</Specification-Version>
+
+                      </manifestEntries>
+                  </archive>
+                  <filters>
+                      <filter>${project.basedir}\src\main\filtering\filter1.properties</filter>
+                  </filters>
+                  <webResources>
+                     <resource>
+                          <directory>${project.basedir}\src\main\custom</directory>
+                          <targetPath>WEB-INF/lib</targetPath>
+                          <includes>
+                              <include>**/test.properties</include>
+                          </includes>
+                         <filtering>true</filtering>
+                      </resource>
+
+                      <resource>
+                          <directory>${project.build.directory}\lib</directory>
+                          <targetPath>WEB-INF\lib</targetPath>
+                          <includes>
+                              <include>Demo-${project.version}.jar</include>
+                          </includes>
+                      </resource>
+                  </webResources>
+
+              </configuration>
+              <executions>
+                  <execution>
+                      <id>default-war</id>
+                      <phase>package</phase>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-install-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>install</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>install-file</goal>
+                      </goals>
+                      <configuration>
+                          <file>target\${project.name}.war</file>
+                          <groupId>mywebapp</groupId>
+                          <artifactId>MyWebApp</artifactId>
+                          <version>${project.version}</version>
+                          <packaging>war</packaging>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>3.1.0</version>
+
+              <executions>
+                  <execution>
+                      <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                      <phase>package</phase> <!-- bind to the packaging phase -->
+                      <goals>
+                          <goal>single</goal>
+                      </goals>
+
+                  </execution>
+              </executions>
+              <configuration>
+                  <descriptors>
+                      <descriptor>${project.basedir}\src\main\assembly\assembly.xml</descriptor>
+                  </descriptors>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>myapp</groupId>
+            <artifactId>myApp</artifactId>
+            <version>${project.version}</version>
+
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

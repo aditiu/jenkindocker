@@ -1,0 +1,122 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>App</groupId>
+        <artifactId>app</artifactId>
+        <version>1.5</version>
+
+    </parent>
+
+    <groupId>myearapp</groupId>
+    <artifactId>MyEarApp</artifactId>
+  <packaging>ear</packaging>
+  <name>MyEarApp</name>
+  <url>http://maven.apache.org</url>
+
+  <build>
+    <finalName>Myearapp</finalName>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>2.6</version>
+              <executions>
+                  <execution>
+                      <id>copy-resource-one</id>
+                      <phase>initialize</phase>
+                      <goals>
+                          <goal>copy-resources</goal>
+                      </goals>
+                      <configuration>
+                          <outputDirectory>${project.build.directory}/ear-content/META-INF</outputDirectory>
+                          <resources>
+                              <resource>
+                                  <directory>${basedir}/META-INF</directory>
+
+                              </resource>
+                          </resources>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-ear-plugin</artifactId>
+              <version>2.8</version>
+              <configuration>
+                  <archive>
+                      <addMavenDescriptor>false</addMavenDescriptor>
+                      <manifestEntries>
+                          <Weblogic-Application-Version>${project.version}</Weblogic-Application-Version>
+                      </manifestEntries>
+                  </archive>
+
+                  <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+                  <generateApplicationXml>true</generateApplicationXml>
+                  <modules>
+                      <webModule>
+                          <groupId>mywebapp</groupId>
+                          <artifactId>MyWebApp</artifactId>
+                          <bundleDir>/</bundleDir>
+                          <bundleFileName>Mywebapp.war</bundleFileName>
+                      </webModule>
+                  </modules>
+                  <earSourceDirectory>${project.build.directory}/ear-content</earSourceDirectory>
+              </configuration>
+              <executions>
+                  <execution>
+                      <id>default-ear</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>ear</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-install-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>install</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>install-file</goal>
+                      </goals>
+                      <configuration>
+                          <file>target\${project.name}.ear</file>
+                          <groupId>myearapp</groupId>
+                          <artifactId>MyEarApp</artifactId>
+                          <version>${project.version}</version>
+                          <packaging>ear</packaging>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
+      </plugins>
+  </build>
+
+    <dependencies>
+
+            <dependency>
+                <groupId>mywebapp</groupId>
+                <artifactId>MyWebApp</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

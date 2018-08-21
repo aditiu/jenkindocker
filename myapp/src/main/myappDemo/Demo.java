@@ -1,0 +1,12 @@
+package myappDemo;
+public class Demo {
+
+    public static void main(String args[])
+    {
+        System.out.println("I am inside the jar created from ant");
+    }
+    public void test()
+    {
+        System.out.println("I am coming as a dependency from ant file");
+    }
+}

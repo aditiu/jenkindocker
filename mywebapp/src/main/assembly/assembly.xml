@@ -1,0 +1,26 @@
+<assembly>
+
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <files>
+        <file><source>${project.basedir}\src\main\assembly\psp.html</source></file>
+    </files>
+    <fileSets>
+        <fileSet><directory>
+        ${project.basedir}\src\main\properties
+    </directory>
+        <outputDirectory>/</outputDirectory>
+        </fileSet>
+
+    </fileSets>
+<dependencySets>
+<dependencySet>
+
+   <outputDirectory>depend</outputDirectory>
+</dependencySet>
+</dependencySets>
+</assembly>

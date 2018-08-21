@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+    <groupId>App</groupId>
+    <artifactId>app</artifactId>
+    <version>1.5</version>
+  <packaging>pom</packaging>
+  <name>App</name>
+    <properties>
+
+     <fromParent>This is coming form parent</fromParent>
+
+        <FD_TEMP_DIR>D:\From desktop\Study material\self study\maven\intellij\myapp\src</FD_TEMP_DIR>
+    </properties>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>myapp</groupId>
+            <artifactId>myApp</artifactId>
+            <version>${project.version}</version>
+
+        </dependency>
+        <dependency>
+            <groupId>myapp</groupId>
+            <artifactId>Demo</artifactId>
+            <version>${project.version}</version>
+
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>LP-AditiUP-releases</name>
+            <url>http://localhost:8081/artifactory/libs-release</url>
+
+        </repository>
+    </distributionManagement>
+ <modules>
+   <module>myapp</module>
+   <module>mywebapp</module>
+     <module>myearapp</module>
+ </modules>
+
+</project>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="My Project" default="main" basedir=".">
+
+    <target name="main" depends="run,compile,jar"/>
+
+    <target name="clean">
+        <echo>Cleaning dir buildFromAnt</echo>
+        <delete dir="${basedir}\buildFromAnt"></delete>
+    </target>
+    <target name="compile" depends="clean">
+        <echo>Compiling file Demo</echo>
+        <mkdir dir="${basedir}\buildFromAnt\classes"/>
+        <javac srcdir="${basedir}\src\main\myappDemo" destdir="${basedir}\buildFromAnt\classes">
+            <include name="Demo.java"/>
+        </javac>
+
+    </target>
+
+    <target name="jar">
+
+        <echo>creating jar file</echo>
+        <jar destfile="${basedir}\Demo.jar" basedir="${basedir}\buildFromAnt\classes" >
+            <manifest>
+                <attribute name="Main-Class" value="myappDemo.Demo"></attribute>
+            </manifest>
+        </jar>
+
+    </target>
+    <target name="run">
+        <echo>I am executing inside : ${project.name}</echo>
+        <echo>This is ant file for test purpose</echo>
+
+    </target>
+
+
+</project>
