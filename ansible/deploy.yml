@@ -39,5 +39,5 @@
        command: "docker build -t tomcatjen:1.0 ."
        register: docker_res
      - name: run docker container
-       command: "docker run --name tomcatJen1 -d -p 8086:8080 tomcatjen:1.0"
+       command: "docker run --name tomcatJen1 -d -v $PWD/{{war_name}}:/usr/local/tomcat/webapps/Mywebapp.war -p 8086:8080 tomcatjen:1.0"
    
