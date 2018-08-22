@@ -24,8 +24,8 @@
        when: found_stop_container.stdout != ""
 
      - name: create docker image from docker file
-       command: "docker build -t tomcatjen:1.0 ."
+       command: "docker build -t tomcatjen:{{New_Project_version}} ."
        register: docker_res
      - name: run docker container
-       command: "docker run --name tomcatJen1 -d -p 8086:8080 tomcatjen:1.0"
+       command: "docker run --name tomcatJen1 -d -p 8086:8080 tomcatjen:{{New_Project_version}}"
    
