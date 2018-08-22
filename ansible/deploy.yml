@@ -23,9 +23,19 @@
        command: "docker rm -f tomcatJen1"
        when: found_stop_container.stdout != ""
 
+     - name: check image exist or not
+       command: "docker images -q tomcat:1.0"
+       register: found_image
+
+     - debug: msg="{{found_image.stdout}}"
+
+     - name: remove docker image
+       command: "docker rmi -f tomcatjen:1.0"
+       when: found_image.stdout != ""
+
      - name: create docker image from docker file
-       command: "docker build -t tomcatjen:{{New_Project_version}} ."
+       command: "docker build -t tomcatjen:1.0 ."
        register: docker_res
      - name: run docker container
-       command: "docker run --name tomcatJen1 -d -p 8086:8080 tomcatjen:{{New_Project_version}}"
+       command: "docker run --name tomcatJen1 -d -p 8086:8080 tomcatjen:1.0"
    
