@@ -8,7 +8,7 @@ public class App {
 		d.test();
 	}
 	public String web() {
-		return "I am method of App jar and called inside war";
+		return "I am method of App jar and called inside war version number 8.3";
 
 	}
 
