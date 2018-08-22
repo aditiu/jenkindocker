@@ -5,7 +5,7 @@
     <parent>
         <groupId>App</groupId>
         <artifactId>app</artifactId>
-        <version>6.0</version>
+        <version>6.3</version>
 
     </parent>
 
