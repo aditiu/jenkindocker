@@ -16,11 +16,14 @@
      - debug: msg="{{found_stop_container.stdout}}"
 
      - name: stop and remove docker container already running
-       command: "docker stop tomcatJen1;docker rm -f tomcatJen1"
+       command: "docker stop tomcatJen1"
+       when: found_container.stdout != ""
+     - name: stop and remove docker container already running
+       command: "docker rm tomcatJen1"
        when: found_container.stdout != ""
    
      - name: remove docker container already running
-       command: "docker rm -f tomcatJen1"
+       command: "docker rm tomcatJen1"
        when: found_stop_container.stdout != ""
 
      - name: check image exist or not
