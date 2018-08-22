@@ -8,21 +8,20 @@
        command: "docker ps -q --filter 'name=tomcatJen1'"
        register: found_container
      - debug: msg="{{found_container.stdout}}"
-     
-     - name: check stop container exist or not
-       command: "docker ps -aq --filter 'name=tomcatJen1'"
-       register: found_stop_container
-
-     - debug: msg="{{found_stop_container.stdout}}"
-
-     - name: stop and remove docker container already running
+     - name: stop docker container already running
        command: "docker stop tomcatJen1"
        when: found_container.stdout != ""
      - name: stop and remove docker container already running
        command: "docker rm tomcatJen1"
        when: found_container.stdout != ""
-   
-     - name: remove docker container already running
+  
+     - name: check stop container exist or not
+       command: "docker ps -aq --filter 'name=tomcatJen1'"
+       register: found_stop_container
+
+     - debug: msg="{{found_stop_container.stdout}}"
+     
+     - name: remove docker container not running
        command: "docker rm tomcatJen1"
        when: found_stop_container.stdout != ""
 
