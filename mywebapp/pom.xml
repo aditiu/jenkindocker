@@ -19,7 +19,6 @@
   <url>http://maven.apache.org</url>
 
   <build>
-    <finalName>Mywebapp</finalName>
       <plugins>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
