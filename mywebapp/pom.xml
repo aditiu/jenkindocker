@@ -112,7 +112,7 @@
                           <goal>install-file</goal>
                       </goals>
                       <configuration>
-                          <file>target\${project.name}.war</file>
+                          <file>target\${project.name}-${project.version}.war</file>
                           <groupId>mywebapp</groupId>
                           <artifactId>MyWebApp</artifactId>
                           <version>${project.version}</version>
